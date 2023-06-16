@@ -16,7 +16,7 @@ export default async function Home() {
       lang: "en",
       title: "Chrome DevRel's posts on HN",
       body: <div class="p-4 mx-auto max-w-screen-md"><ul>
-        {data.hits.map((post: any) => ( <li><a href={"/comments/" + post.objectID}>{post.title}</a></li> ))}
+        {data.hits.map((post: any) => ( <li><a href={"/comments/?id=" + post.objectID}>{post.title}</a></li> ))}
         </ul>
       </div>
     }
