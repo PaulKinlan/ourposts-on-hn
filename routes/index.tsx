@@ -3,7 +3,7 @@ import html, { h } from "https://deno.land/x/htm@0.2.1/mod.ts";
 
 
 const fetchHNPosts = async (url: string) => {
-  const algoliaURL = `https://hn.algolia.com/api/v1/search?query=${url}&tags=story&numericFilters=num_comments%3E10`;
+  const algoliaURL = `https://hn.algolia.com/api/v1/search_by_date?query=${url}&tags=story&numericFilters=num_comments%3E10`;
   const response = await fetch(algoliaURL);
   return await response.json();
 }
