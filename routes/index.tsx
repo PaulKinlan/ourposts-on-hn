@@ -19,10 +19,10 @@ export default async function Home(props: any) {
       title: "Chrome DevRel's posts on HN",
       body: <div class="p-4 mx-auto max-w-screen-md">
         <h2>web.dev</h2><ul>
-        {webDevData.hits.map((post: any) => ( <li><a href={"/comments/?id=" + post.objectID}>{post.title}</a></li> ))}
+        {webDevData.hits.map((post: any) => ( <li><a href={"/comment?id=" + post.objectID}>{post.title}</a></li> ))}
         </ul>
         <h2>developer.chrome.com</h2><ul>
-        {dcc.hits.map((post: any) => ( <li><a href={"/comments/?id=" + post.objectID}>{post.title}</a></li> ))}
+        {dcc.hits.map((post: any) => ( <li><a href={"/comment?id=" + post.objectID}>{post.title}</a></li> ))}
         </ul>
       </div>
     }
