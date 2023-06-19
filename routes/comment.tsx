@@ -34,7 +34,7 @@ class HNDOMBuilder {
   }
 
   append = (data) => {
-    const { id, parent, text, time, title, type, by, deleted, dead } = data;
+    const { id, parent, text, time, title, type, by, deleted, dead, score } = data;
 
     if (deleted || dead) return; 
 
@@ -42,7 +42,11 @@ class HNDOMBuilder {
 
     const element = (<div>
     {(type == "story") ?
-    <h1>{title}</h1>: <div><p>{by} wrote <blockquote dangerouslySetInnerHTML={{__html: text}}></blockquote></div>}
+    <div>
+      <h1>{title}</h1>
+      <p>Score: {score}</p>
+    </div>: <div>
+      <p>{by} wrote <blockquote dangerouslySetInnerHTML={{__html: text}}></blockquote></p></div>}
   </div>);
 
     this.map.set(id, element);
