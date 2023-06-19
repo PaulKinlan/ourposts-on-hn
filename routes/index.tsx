@@ -9,10 +9,10 @@ const fetchHNPosts = async (url: string) => {
 }
 
 export default async function Home(props: any) {
-  
+
   const webDevData = await fetchHNPosts("https://web.dev");
   const dcc = await fetchHNPosts("https://developer.chrome.com");
-  
+
   return html(
     {
       lang: "en",
@@ -23,10 +23,10 @@ export default async function Home(props: any) {
       ],
       body: <div class="p-4 mx-auto max-w-screen-md">
         <h2>web.dev</h2><ul>
-        {webDevData.hits.map((post: any) => ( <li><a href={"/comment?id=" + post.objectID}>{post.title}</a></li> ))}
+          {webDevData.hits.map((post: any) => (<li><a href={"/comment?id=" + post.objectID}>{post.title}</a> posted { Math.floor(((Date.now() / 1000) - new Date(post.created_at_i)) / 86400) } days ago [score: {post.points}, comments: {post.num_comments}].</li>))}
         </ul>
         <h2>developer.chrome.com</h2><ul>
-        {dcc.hits.map((post: any) => ( <li><a href={"/comment?id=" + post.objectID}>{post.title}</a></li> ))}
+          {dcc.hits.map((post: any) =>(<li><a href={"/comment?id=" + post.objectID}>{post.title}</a> posted { Math.floor(((Date.now() / 1000) - new Date(post.created_at_i)) / 86400) } days ago [score: {post.points}, comments: {post.num_comments}].</li>))}
         </ul>
       </div>
     }

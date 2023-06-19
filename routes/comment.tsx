@@ -44,7 +44,7 @@ class HNDOMBuilder {
     {(type == "story") ?
     <div>
       <h1>{title}</h1>
-      <p>Score: {score}</p>
+      <p>Score: {score}. Posted on { new Date(time * 1000).toLocaleDateString() } by {by}</p>
     </div>: <div>
       <p>{by} wrote <blockquote dangerouslySetInnerHTML={{__html: text}}></blockquote></p></div>}
   </div>);
