@@ -17,6 +17,10 @@ export default async function Home(props: any) {
     {
       lang: "en",
       title: "Chrome DevRel's posts on HN",
+      styles: [
+        "pre { overflow-x: auto;}",
+        "div { margin-left: 2ch; }"
+      ],
       body: <div class="p-4 mx-auto max-w-screen-md">
         <h2>web.dev</h2><ul>
         {webDevData.hits.map((post: any) => ( <li><a href={"/comment?id=" + post.objectID}>{post.title}</a></li> ))}

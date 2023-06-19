@@ -62,12 +62,16 @@ export default async function Comments(request: Request) {
   const hn = new HN();
   const root = <section></section>;
   const builder = new HNDOMBuilder(root);
-  await hn.comments(storyId, builder.append).then(console.log);
+  await hn.comments(storyId, builder.append);
 
   return html(
     {
       lang: "en",
       title: "Chrome DevRel's posts on HN",
+      styles: [
+        "pre { overflow-x: auto;}",
+        "section div { margin-left: 2ch; }"
+      ],
       body: <div class="p-4 mx-auto max-w-screen-md">
         {root}
       </div>
