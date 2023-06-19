@@ -42,7 +42,7 @@ class HNDOMBuilder {
 
     const element = (<div>
     {(type == "story") ?
-    <h1>{title}</h1>: <div><p>{by}</p><p dangerouslySetInnerHTML={{__html: text}}></p></div>}
+    <h1>{title}</h1>: <div><p>{by} wrote <blockquote dangerouslySetInnerHTML={{__html: text}}></blockquote></div>}
   </div>);
 
     this.map.set(id, element);
