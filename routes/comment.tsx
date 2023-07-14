@@ -1,4 +1,6 @@
 import html, { h } from "https://deno.land/x/htm@0.2.1/mod.ts";
+import { Html5Entities } from "https://deno.land/x/html_entities@v1.0/mod.js";
+
 /** @jsx h */
 
 class HN {
@@ -27,7 +29,7 @@ class HN {
 
 class HNDOMBuilder {
   private root;
-  private map:Map<Number, any>;
+  private map: Map<Number, any>;
   constructor(root) {
     this.root = root;
     this.map = new Map();
@@ -36,18 +38,24 @@ class HNDOMBuilder {
   append = (data) => {
     const { id, parent, text, time, title, type, by, deleted, dead, score } = data;
 
-    if (deleted || dead) return; 
+    if (deleted || dead) return;
 
     const parentElement = this.map.get(parent) || this.root;
-
+    let newText = text;
+    if (text != undefined) {
+      newText = text.replaceAll(/<a href="([^\"]+)"([^>]+)>([^<]+)<\/a>/g, (match, p1, p2, p3, offset, string) => {
+        const decodedUrl = Html5Entities.decode(p1);
+        return `<a href="${decodedUrl}">${decodedUrl}</a>`;
+      });
+    }
     const element = (<div>
-    {(type == "story") ?
-    <div>
-      <h1>{title}</h1>
-      <p>Score: {score}. Posted on { new Date(time * 1000).toLocaleDateString() } by {by}</p>
-    </div>: <div>
-      <p>{by} wrote <blockquote dangerouslySetInnerHTML={{__html: text}}></blockquote></p></div>}
-  </div>);
+      {(type == "story") ?
+        <div>
+          <h1>{title}</h1>
+          <p>Score: {score}. Posted on {new Date(time * 1000).toLocaleDateString()} by {by}</p>
+        </div> : <div>
+          <p>{by} wrote <blockquote dangerouslySetInnerHTML={{ __html: newText }}></blockquote></p></div>}
+    </div>);
 
     this.map.set(id, element);
 
