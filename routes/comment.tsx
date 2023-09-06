@@ -54,7 +54,7 @@ class HNDOMBuilder {
           <h1>{title}</h1>
           <p>Score: {score}. Posted on {new Date(time * 1000).toLocaleDateString()} by {by}</p>
         </div> : <div>
-          <p>{by} wrote <blockquote dangerouslySetInnerHTML={{ __html: newText }}></blockquote></p></div>}
+          <p>[id] {by} wrote in reply to [parent] <blockquote dangerouslySetInnerHTML={{ __html: newText }}></blockquote></p></div>}
     </div>);
 
     this.map.set(id, element);
