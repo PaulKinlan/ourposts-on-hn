@@ -50,15 +50,13 @@ serve((req: Request) => {
     [
       new URLPattern({ pathname: "/" }),
       async (request) => {
-        const resp = await Home(request);
-        return resp;
+        return await Home(request);
       },
     ],
     [
       new URLPattern({ pathname: "/comment" }),
       async (request) => {
-        const resp = await Comment(request);
-        return resp;
+        return await Comment(request);
       },
     ],
     // Fall through.
