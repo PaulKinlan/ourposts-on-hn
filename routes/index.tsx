@@ -1,6 +1,6 @@
-import html, { h } from "https://deno.land/x/htm@0.2.1/mod.ts";
 /** @jsx h */
-
+import html, { h } from "https://deno.land/x/htm@0.2.1/mod.ts";
+import Posts from "../components/posts.tsx";
 
 const fetchHNPosts = async (url: string) => {
   const algoliaURL = `https://hn.algolia.com/api/v1/search_by_date?query=${url}&tags=story&numericFilters=num_comments%3E10`;
@@ -12,6 +12,7 @@ export default async function Home(props: any) {
 
   const webDevData = await fetchHNPosts("https://web.dev");
   const dcc = await fetchHNPosts("https://developer.chrome.com");
+  const chromeStatus = await fetchHNPosts("https://chromestatus.com");
 
   return html(
     {
@@ -23,13 +24,13 @@ export default async function Home(props: any) {
       ],
       body: <div class="p-4 mx-auto max-w-screen-md">
         <h2>web.dev</h2>
-        <ul>
-          {webDevData.hits.map((post: any) => (<li><a href={"/comment?id=" + post.objectID}>{post.title}</a> posted {Math.floor(((Date.now() / 1000) - new Date(post.created_at_i)) / 86400)} days ago [score: {post.points}, comments: {post.num_comments} - <a href={`https://news.ycombinator.com/item?id=${post.objectID}`}>Original comments</a>].</li>))}
-        </ul>
+        <Posts data={webDevData}></Posts>
+        
         <h2>developer.chrome.com</h2>
-        <ul>
-          {dcc.hits.map((post: any) => (<li><a href={"/comment?id=" + post.objectID}>{post.title}</a> posted {Math.floor(((Date.now() / 1000) - new Date(post.created_at_i)) / 86400)} days ago [score: {post.points}, comments: {post.num_comments} - <a href={`https://news.ycombinator.com/item?id=${post.objectID}`}>Original comments</a>].</li>))}
-        </ul>
+        <Posts data={dcc}></Posts>
+
+        <h2>ChromeStatus</h2>
+        <Posts data={chromeStatus}></Posts>
       </div>
     }
   );
