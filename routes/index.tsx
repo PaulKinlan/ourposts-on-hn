@@ -14,6 +14,7 @@ export default async function Home(props: any) {
   const dcc = await fetchHNPosts("https://developer.chrome.com");
   const chromeStatus = await fetchHNPosts("https://chromestatus.com");
   const chromiumSource = await fetchHNPosts("https://chromium.googlesource.com");
+  const v8 = await fetchHNPosts("https://v8.dev");
 
 
   return html(
@@ -36,6 +37,9 @@ export default async function Home(props: any) {
 
         <h2>chromium.googlesource.com</h2>
         <Posts data={chromiumSource}></Posts>
+
+        <h2>v8.dev</h2>
+        <Posts data={v8}></Posts>
       </div>
     }
   );
